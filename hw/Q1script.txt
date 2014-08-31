@@ -1,0 +1,29 @@
+cd /usr/local/mahout-0.7/bin
+
+mkdir -p /tmp/hxr121830/mahout-work
+
+./mahout seqdirectory -c UTF-8 -i /reviews-extracted/ -o /tmp/hxr121830/mahout-work/imdb-seqfiles
+
+./mahout seqdumper -i /tmp/hxr121830/mahout-work/imdb-seqfiles/chunk-0 | more
+
+./mahout seq2sparse -i /tmp/hxr121830/mahout-work/imdb-seqfiles/ -o /tmp/hxr121830/mahout-work/imdb-vectors/ -ow -chunk 100 -x 80 -seq -ml 50 -n 2 -nv
+
+./mahout seqdumper -i /tmp/hxr121830/mahout-work/imdb-vectors/tfidf-vectors/part-r-00000 | more
+
+./mahout seqdumper -i /tmp/hxr121830/mahout-work/imdb-vectors/tokenized-documents/part-m-00000 | more
+
+./mahout seqdumper -i /tmp/hxr121830/mahout-work/imdb-vectors/dictionary.file-0 | more
+
+./mahout kmeans -i /tmp/hxr121830/mahout-work/imdb-vectors/tfidf-vectors/ -c /tmp/hxr121830/mahout-work/imdb-vectors/imdb-kmeans-centroids -cl -o /tmp/hxr121830/mahout-work/imdb-vectors/imdb-kmeans-clusters -k 60 -ow -x 10 -dm org.apache.mahout.common.distance.CosineDistanceMeasure
+
+./mahout clusterdump -d /tmp/hxr121830/mahout-work/imdb-vectors/dictionary.file-0 -dt sequencefile -i /tmp/hxr121830/mahout-work/imdb-vectors/imdb-kmeans-clusters/clusters-*-final/part-r-00000 -n 20 -b 100 -o /tmp/hxr121830/Q1clusters.out -p /tmp/hxr121830/mahout-work/imdb-vectors/imdb-kmeans-clusters/clusteredPoints/ 
+
+./mahout seqdumper -i /tmp/hxr121830/mahout-work/imdb-vectors/imdb-kmeans-clusters/clusteredPoints/part-m-00000 | more
+
+./mahout seqdumper -i /tmp/hxr121830/mahout-work/imdb-vectors/imdb-kmeans-clusters/clusteredPoints/part-m-00000 > /tmp/hxr121830/Q1clpoints.out
+
+more /tmp/hxr121830/Q1clusters.out | more
+
+more /tmp/hxr121830/Q1clpoints.out | more
+
+

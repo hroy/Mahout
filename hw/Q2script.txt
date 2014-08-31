@@ -1,0 +1,29 @@
+cd mahout-naive-bayes-example-master
+
+/usr/local/mahout-0.7/bin/mahout seq2sparse -i /user/hxr121830/HW5/reviews-seq -o /user/hxr121830/HW5/reviews-vectors -ow -chunk 100 -x 60 -seq -ml 50 -n 2 -nv
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/reviews-vectors/tfidf-vectors/part-r-00000 | more
+
+/usr/local/mahout-0.7/bin/mahout split -i /user/hxr121830/HW5/reviews-vectors/tfidf-vectors --trainingOutput /user/hxr121830/HW5/train-vectors --testOutput /user/hxr121830/HW5/test-vectors --randomSelectionPct 30 --overwrite --sequenceFiles -xm sequential
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/train-vectors/part-r-00000 | more
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/test-vectors/part-r-00000 | more
+
+/usr/local/mahout-0.7/bin/mahout trainnb -i /user/hxr121830/HW5/train-vectors -el -li /user/hxr121830/HW5/labelindex -o /user/hxr121830/HW5/model-hw5 -ow -c
+
+/usr/local/mahout-0.7/bin/mahout testnb -i /user/hxr121830/HW5/train-vectors -m /user/hxr121830/HW5/model-hw5 -l /user/hxr121830/HW5/labelindex -ow -o /user/hxr121830/HW5/reviews-train-testing -c
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/reviews-train-testing/part-m-00000 | more
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/reviews-train-testing/part-m-00000 > /tmp/hxr121830/Q2tr.txt
+
+/usr/local/mahout-0.7/bin/mahout cat /tmp/hxr121830/Q2tr.txt | more
+
+/usr/local/mahout-0.7/bin/mahout testnb -i /user/hxr121830/test-vectors -m /user/hxr121830/HW5/model-hw5 -l /user/hxr121830/HW5/labelindex -ow -o /user/hxr121830/HW5/reviews-test-testing -c
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/reviews-test-testing/part-m-00000 | more
+
+/usr/local/mahout-0.7/bin/mahout seqdumper -i /user/hxr121830/HW5/reviews-test-testing/part-m-00000 > /tmp/hxr121830/Q2te.txt
+
+/usr/local/mahout-0.7/bin/mahout cat /tmp/hxr121830/Q2te.txt | more

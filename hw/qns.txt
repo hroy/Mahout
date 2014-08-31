@@ -1,0 +1,46 @@
+ In this part of  homework you will learn how to use Mahout. 
+
+Q1: Clustering
+Dataset:
+All the instances are located in the HDFS path /reviews-extracted. Please don’t copy to any other location. Data has been extracted from the imdb62 dataset *. These movie reviews were crawled from www.imdb.com in May 2009.
+Each line in imdb62 is in the following tab-separated format:
+(userId)	(itemId )	(title+content)
+where:
+ - userId is the user's ID, as used in IMDb (e.g., for userId=33913 the user's review page is http://www.imdb.com/user/ur0033913/comments)
+ - itemId is the item's ID. For this HW, IDs have been taken starting from 1 to N where N is the number of instances.
+ - title is the review's title
+ - content is the review's content
+
+For this HW, 5000 instances have been used from this dataset. Each instance has been rewritten to a separate file (document) with a slight modification to suite Mahout Requirements.
+
+Requirements:
+Apply Kmeans clustering algorithm in Mahout considering the following:
+1-	Show the related dump commands in all your steps.
+2-	For building the dictionary, eliminate any token that appears in 80% of the docs.
+3-	Apply TF-IDF in Mahout to generate the vectors.
+4-	Generate 60 clusters.
+5-	For the similarity measure, use the Cosine Distance Measure.
+6-	Show the clusters and clustered points.
+7-	For all parameters that haven’t been specified above, please follow class notes.
+
+The file imdb62.txt contains the IMDb reviews used in the papers:
+Yanir Seroussi, Ingrid Zukerman and Fabian Bohnert: "Collaborative inference of sentiments from texts". In UMAP 2010: Proceedings of the 18th International Conference on User Modeling, Adaptation, and Personalization, pages 195-206, Waikoloa, HI, USA, 2010. 
+Yanir Seroussi, Ingrid Zukerman and Fabian Bohnert: "Authorship attribution with latent Dirichlet allocation". In CoNLL 2011: Proceedings of the 15th International Conference on Computational Natural Language Learning, pages 181-189, Portland, OR, USA, 2011.
+ 
+
+
+Q2: Classification
+Dataset:
+The same dataset mentioned in Q1 will be used for this question as well. The sequence files have already been generated and are located in the HDFS location reviews-seq. Please don’t copy to any other location.
+
+Requirements:
+
+Apply Naïve Bayes Classification algorithm in Mahout considering the following:
+1-	 Show the related dump commands in all your steps.
+2-	For building the dictionary, eliminate any token that appears in 60% of the docs.
+3-	Apply TF-IDF in Mahout to generate the vectors.
+4-	Use 70% for Training the model and 30% for testing.
+5-	Test the Training set to show the Correctly Classified Instances and the Confusion Matrix.
+6-	Test the Testing set to show the Correctly Classified Instances and the Confusion Matrix.
+7-	For all parameters that haven’t been specified above, please follow class notes.
+
